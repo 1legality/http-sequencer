@@ -1,0 +1,79 @@
+<!doctype html>
+<main class="wrap">
+<header class="row space">
+<h1>SH‑4d Web Sequencer</h1>
+<button id="installBtn" class="btn ghost" hidden>Install</button>
+</header>
+
+
+<section class="panel">
+<div class="row">
+<button id="connectBtn" class="btn primary">Connect MIDI</button>
+<select id="outSel" class="select"></select>
+<button id="testBtn" class="btn">Test Note</button>
+</div>
+<div class="row">
+<label>BPM <input id="bpm" type="number" value="120" min="20" max="300" class="num"/></label>
+<button id="clockBtn" class="btn">Start Clock</button>
+<button id="playBtn" class="btn success">Play</button>
+<button id="stopBtn" class="btn danger">Stop</button>
+</div>
+</section>
+
+
+<section class="panel">
+<div class="row">
+<input id="file" type="file" accept=".mid,.midi" />
+<span id="fileInfo" class="muted">No file loaded</span>
+</div>
+<div class="row">
+<fieldset class="grid2">
+<legend>Arp</legend>
+<label>Rate (div)
+<input id="arpRate" type="number" min="2" max="32" value="8" class="num" />
+</label>
+<label>Octaves
+<input id="arpOct" type="number" min="1" max="4" value="2" class="num" />
+</label>
+<label>Gate
+<input id="arpGate" type="range" min="0.1" max="1" step="0.05" value="0.85" />
+</label>
+<label>Mode
+<select id="arpMode" class="select">
+<option>up</option>
+<option>down</option>
+<option selected>updown</option>
+<option>random</option>
+</select>
+</label>
+</fieldset>
+
+
+<fieldset class="grid2">
+<legend>Euclid</legend>
+<label>Steps
+<input id="eSteps" type="number" min="1" max="64" value="16" class="num" />
+</label>
+<label>Pulses
+<input id="ePulses" type="number" min="0" max="64" value="11" class="num" />
+</label>
+<label>Rotate
+<input id="eRotate" type="number" min="0" max="64" value="2" class="num" />
+</label>
+<label>Gate
+<input id="eGate" type="range" min="0.1" max="1" step="0.05" value="0.8" />
+</label>
+</fieldset>
+</div>
+</section>
+
+
+<section class="panel">
+<pre id="log" class="log"></pre>
+</section>
+</main>
+
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>
