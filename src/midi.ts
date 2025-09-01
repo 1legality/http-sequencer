@@ -3,8 +3,18 @@ export type MidiEvent = { timeMs:number; bytes:number[] };
 
 let access: MIDIAccess | null = null;
 export async function ensureAccess(): Promise<MIDIAccess> {
-access ||= await navigator.requestMIDIAccess({ sysex:false });
-return access;
+  if (!('requestMIDIAccess' in navigator)) {
+    throw new Error('Web MIDI API not available. Ensure you are using a secure context (HTTPS) and a supported browser.');
+  }
+  if (access) return access;
+  try {
+    access = await (navigator as any).requestMIDIAccess({ sysex: false });
+    if (!access) throw new Error('navigator.requestMIDIAccess returned no access object.');
+    return access;
+  } catch (err:any) {
+    const msg = err?.message ?? String(err);
+    throw new Error(`Failed to get MIDI access: ${msg}. Check browser permissions and that the site is served over HTTPS. In Chrome, check chrome://settings/content/midiDevices and ensure the site is allowed.`);
+  }
 }
 
 
